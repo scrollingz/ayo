@@ -1,807 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <base href="https://cdn.jsdelivr.net/gh/gn-math/gn-math-DONTDMCA@main/">
-    <link rel="icon" type="image/x-icon" href="https://cdn.jsdelivr.net/gh/scrollingz/ayo@main/favicon.ico">
-    <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/scrollingz/ayo@main/favicon.ico">
-    <link rel="apple-touch-icon" href="https://cdn.jsdelivr.net/gh/scrollingz/ayo@main/favicon.ico">
-    
-    <script>
-        window.addEventListener('beforeunload', function(e) { 
-            e.preventDefault(); 
-            e.returnValue = ''; 
-        });
-    </script>
-    
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IXL | Dashboard</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        body {
-            background: #000;
-            color: #fff;
-            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-            min-height: 100vh;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            overflow-x: hidden;
-        }
-        /* ====================== TOPBAR ====================== */
-        .topbar {
-            padding: 48px 24px 0;
-            max-width: 980px;
-            margin: 0 auto;
-        }
-        .wordmark {
-            font-size: 26px;
-            font-weight: 700;
-            letter-spacing: -0.05em;
-            background: linear-gradient(90deg, #ffffff, #bbbbbb);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 32px;
-        }
-        /* Controls */
-        .controls {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 44px;
-            flex-wrap: wrap;
-        }
-        .controls input,
-        .controls select {
-            background: #0a0a0a;
-            border: 1px solid #1c1c1c;
-            color: #eee;
-            border-radius: 12px;
-            font-size: 14.5px;
-            padding: 12px 16px;
-            outline: none;
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-            font-family: inherit;
-        }
-        .controls input {
-            flex: 1;
-            min-width: 200px;
-        }
-        .controls input::placeholder {
-            color: #555;
-        }
-        .controls input:focus,
-        .controls select:focus {
-            border-color: #555;
-            box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.04);
-        }
-        .controls select {
-            cursor: pointer;
-            appearance: none;
-            padding-right: 36px;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23666' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 14px center;
-        }
-        /* Icon Buttons */
-        .btn-icon {
-            background: #0a0a0a;
-            border: 1px solid #1c1c1c;
-            color: #666;
-            border-radius: 12px;
-            width: 44px;
-            height: 44px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-            flex-shrink: 0;
-        }
-        .btn-icon:hover {
-            border-color: #555;
-            color: #ddd;
-            transform: translateY(-2px);
-        }
-        .btn-icon img {
-            width: 16px;
-            height: 16px;
-            filter: invert(0.55);
-            transition: all 0.4s ease;
-        }
-        .btn-icon:hover img {
-            filter: invert(0.95);
-            transform: rotate(45deg);
-        }
-        /* Section Label */
-        .section-label {
-            font-size: 11px;
-            font-weight: 600;
-            color: #555;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            margin-bottom: 16px;
-        }
-        /* ====================== MAIN CONTENT ====================== */
-        #main-wrap {
-            max-width: 980px;
-            margin: 0 auto;
-            padding: 0 24px 120px;
-        }
-        #featuredZones,
-        #container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(178px, 1fr));
-            gap: 18px;
-            margin-bottom: 52px;
-        }
-        /* Zone Card */
-        .zone-item {
-            background: #080808;
-            border: 1px solid #161616;
-            border-radius: 16px;
-            overflow: hidden;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
-            position: relative;
-        }
-        .zone-item:hover {
-            border-color: #383838;
-            background: #0f0f0f;
-            transform: translateY(-6px) scale(1.01);
-            box-shadow: 0 25px 40px -15px rgba(0, 0, 0, 0.7);
-        }
-        .zone-item .img-wrap {
-            overflow: hidden;
-            position: relative;
-        }
-        .zone-item img {
-            width: 100%;
-            aspect-ratio: 1 / 1;
-            object-fit: cover;
-            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-        .zone-item:hover img {
-            transform: scale(1.08);
-        }
-        /* Subtle overlay shine */
-        .zone-item::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(
-                135deg,
-                rgba(255,255,255,0.035) 0%,
-                transparent 40%
-            );
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            pointer-events: none;
-        }
-        .zone-item:hover::after {
-            opacity: 1;
-        }
-        .zone-item button {
-            background: transparent;
-            border: none;
-            color: #aaa;
-            font-family: inherit;
-            font-size: 13.5px;
-            font-weight: 500;
-            padding: 15px 17px;
-            cursor: pointer;
-            text-align: left;
-            line-height: 1.4;
-            transition: color 0.25s ease;
-            flex: 1;
-        }
-        .zone-item:hover button {
-            color: #fff;
-        }
-        /* ====================== ZONE VIEWER ====================== */
-        #zoneViewer {
-            position: fixed;
-            inset: 0;
-            background: #000;
-            z-index: 1000;
-            display: none;
-            flex-direction: column;
-        }
-        .zone-header {
-            background: #050505;
-            border-bottom: 1px solid #1a1a1a;
-            padding: 0 24px;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-shrink: 0;
-            gap: 16px;
-        }
-        .zone-title-row {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            min-width: 0;
-            flex: 1;
-        }
-        #zoneName {
-            font-size: 16px;
-            font-weight: 600;
-            letter-spacing: -0.01em;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        #zoneAuthor {
-            font-size: 13.5px;
-            color: #666;
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-        #zoneAuthor:hover {
-            color: #aaa;
-        }
-        .zone-controls button {
-            background: transparent;
-            border: 1px solid #222;
-            color: #777;
-            padding: 7px 16px;
-            border-radius: 9px;
-            cursor: pointer;
-            font-family: inherit;
-            font-size: 13px;
-            font-weight: 500;
-            transition: all 0.25s ease;
-            white-space: nowrap;
-        }
-        .zone-controls button:hover {
-            border-color: #555;
-            color: #fff;
-            background: rgba(255,255,255,0.025);
-        }
-        #zoneFrame {
-            flex: 1;
-            border: none;
-            width: 100%;
-        }
-        /* ====================== POPUP ====================== */
-        #popupOverlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.88);
-            backdrop-filter: blur(16px);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
-            padding: 20px;
-        }
-        .popup {
-            background: #0b0b0b;
-            border: 1px solid #222;
-            border-radius: 18px;
-            width: 100%;
-            max-width: 460px;
-            max-height: 88vh;
-            overflow: hidden;
-            box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.8);
-        }
-        .popup-header {
-            border-bottom: 1px solid #1f1f1f;
-            padding: 18px 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        #popupTitle {
-            font-size: 15.5px;
-            font-weight: 600;
-        }
-        #popupClose {
-            background: transparent;
-            border: 1px solid #222;
-            color: #666;
-            font-size: 19px;
-            width: 34px;
-            height: 34px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s ease;
-        }
-        #popupClose:hover {
-            border-color: #555;
-            color: #fff;
-            background: rgba(255,255,255,0.03);
-        }
-        #popupBody {
-            padding: 24px;
-            overflow-y: auto;
-            color: #ccc;
-            line-height: 1.8;
-            font-size: 14.2px;
-        }
-        /* Scrollbar */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #222;
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #333;
-        }
-        /* ====================== RESPONSIVE ====================== */
-        @media (max-width: 640px) {
-            .topbar {
-                padding: 32px 16px 0;
-            }
-            #main-wrap {
-                padding: 0 16px 80px;
-            }
-            #featuredZones,
-            #container {
-                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-                gap: 14px;
-            }
-            .controls {
-                gap: 10px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>rizo.lol</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="https://egz.lovable.app/favicon.ico" type="image/x-icon">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      background: #000;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Loader */
+    #loader {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at center, #111, #000);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      z-index: 9999;
+      transition: opacity 0.4s ease;
+    }
+
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 4px solid rgba(255,255,255,0.1);
+      border-top: 4px solid white;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 15px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .loading-text {
+      font-size: 18px;
+      letter-spacing: 1px;
+      opacity: 0.8;
+      animation: fadeText 1.5s ease-in-out infinite;
+    }
+
+    @keyframes fadeText {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 1; }
+    }
+
+    iframe {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      border: none;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    iframe.loaded {
+      opacity: 1;
+    }
+  </style>
 </head>
 <body>
-    <div class="topbar">
-        <div class="wordmark">Zetify</div>
-        <div class="controls">
-            <input type="text" id="searchBar" placeholder="Search games..." oninput="filterZones()">
-            <select id="sortOptions" onchange="sortZones()">
-                <option value="name">Name</option>
-                <option value="id">Date Added</option>
-                <option value="popular">Popular</option>
-                <option value="trendingDay">Trending (Day)</option>
-                <option value="trendingWeek">Trending (Week)</option>
-                <option value="trendingMonth">Trending (Month)</option>
-            </select>
-            <select id="filterOptions" onchange="filterZones2()">
-                <option value="none">All Tags</option>
-            </select>
-            <button class="btn-icon" title="Refresh" onclick="listZones()">
-                <img src="refresh-icon.png" alt="refresh">
-            </button>
-            <button class="btn-icon" id="settings" title="Settings">
-                <img src="setting.png" alt="settings">
-            </button>
-        </div>
-    </div>
 
-    <div id="main-wrap">
-        <div class="section-label" id="featuredLabel" style="display:none">Featured</div>
-        <div id="featuredZones"></div>
-        <div class="section-label" id="allLabel">Games</div>
-        <div id="container">Loading...</div>
-    </div>
+  <div id="loader">
+    <div class="spinner"></div>
+    <div class="loading-text">Launching rizo.lol...</div>
+  </div>
 
-    <!-- Zone Viewer -->
-    <div id="zoneViewer">
-        <div class="zone-header">
-            <div class="zone-title-row">
-                <span id="zoneName"></span>
-                <span id="zoneId" style="display:none"></span>
-                <a id="zoneAuthor" href="#" target="_blank"></a>
-                <button class="info-button" onclick="showZoneInfo()" title="Info">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>
-                    </svg>
-                </button>
-            </div>
-            <div class="zone-controls">
-                <button onclick="fullscreenZone()">Fullscreen</button>
-                <button onclick="aboutBlank()">New Tab</button>
-                <button onclick="downloadZone()">Download</button>
-                <button onclick="closeZone()">Close</button>
-            </div>
-        </div>
-        <iframe id="zoneFrame"></iframe>
-    </div>
+  <iframe 
+    src="https://egz.lovable.app"
+    allowfullscreen
+    onload="
+      document.getElementById('loader').style.opacity='0';
+      setTimeout(() => document.getElementById('loader').style.display='none', 400);
+      this.classList.add('loaded');
+    ">
+  </iframe>
 
-    <!-- Popup -->
-    <div id="popupOverlay">
-        <div class="popup">
-            <div class="popup-header">
-                <span id="popupTitle"></span>
-                <button id="popupClose" onclick="closePopup()">×</button>
-            </div>
-            <div id="popupBody"></div>
-        </div>
-    </div>
-
-    <input type="file" id="importData" style="display:none;" onchange="loadData(event)">
-
-    <script>
-        const container = document.getElementById('container');
-        const zoneViewer = document.getElementById('zoneViewer');
-        let zoneFrame = document.getElementById('zoneFrame');
-        const searchBar = document.getElementById('searchBar');
-        const sortOptions = document.getElementById('sortOptions');
-        const filterOptions = document.getElementById('filterOptions');
-        
-        const zonesurls = [
-            "https://cdn.jsdelivr.net/gh/%67%6e%2d%6d%61%74%68/assets@main/zones.json",
-            "https://cdn.jsdelivr.net/gh/%67%6e%2d%6d%61%74%68/assets@latest/zones.json",
-            "https://cdn.jsdelivr.net/gh/%67%6e%2d%6d%61%74%68/assets@master/zones.json",
-            "https://cdn.jsdelivr.net/gh/%67%6e%2d%6d%61%74%68/assets/zones.json"
-        ];
-        
-        let zonesURL = zonesurls[Math.floor(Math.random() * zonesurls.length)];
-        const coverURL = "https://cdn.jsdelivr.net/gh/%67%6e%2d%6d%61%74%68/covers@main";
-        const htmlURL = "https://cdn.jsdelivr.net/gh/%67%6e%2d%6d%61%74%68/html@main";
-        let zones = [];
-        let popularityData = {};
-        const featuredContainer = document.getElementById('featuredZones');
-
-        function toTitleCase(str) {
-            return str.replace(/\w\S*/g, t => t.charAt(0).toUpperCase() + t.substring(1).toLowerCase());
-        }
-
-        async function listZones() {
-            try {
-                let sharesponse, sha;
-                try { 
-                    sharesponse = await fetch("https://api.github.com/repos/%67%6e%2d%6d%61%74%68/assets/commits?t=" + Date.now()); 
-                } catch(e){}
-                
-                if (sharesponse && sharesponse.status === 200) {
-                    try {
-                        const j = await sharesponse.json();
-                        sha = j[0]['sha'];
-                        if (sha) zonesURL = `https://cdn.jsdelivr.net/gh/%67%6e%2d%6d%61%74%68/assets@${sha}/zones.json`;
-                    } catch(e) {
-                        try {
-                            const r = await fetch("https://raw.githubusercontent.com/%67%6e%2d%6d%61%74%68/xml/refs/heads/main/sha.txt?t=" + Date.now());
-                            if (r && r.status === 200) { 
-                                sha = (await r.text()).trim(); 
-                                if (sha) zonesURL = `https://cdn.jsdelivr.net/gh/%67%6e%2d%6d%61%74%68/assets@${sha}/zones.json`; 
-                            }
-                        } catch(e){}
-                    }
-                }
-
-                const response = await fetch(zonesURL + "?t=" + Date.now());
-                const json = await response.json();
-                zones = json;
-                zones[0].featured = true;
-                
-                await Promise.all([
-                    fetchPopularity("year"), 
-                    fetchPopularity("month"), 
-                    fetchPopularity("week"), 
-                    fetchPopularity("day")
-                ]);
-                
-                sortZones();
-
-                // Handle direct link
-                try {
-                    const params = new URLSearchParams(window.location.search);
-                    const id = params.get('id');
-                    const embed = window.location.hash.includes("embed");
-                    if (id) {
-                        const zone = zones.find(z => z.id + '' == id + '');
-                        if (zone) {
-                            if (embed) {
-                                if (zone.url.startsWith("http")) { 
-                                    window.open(zone.url, "_blank"); 
-                                } else {
-                                    fetch(zone.url.replace("{COVER_URL}", coverURL).replace("{HTML_URL}", htmlURL) + "?t=" + Date.now())
-                                        .then(r => r.text())
-                                        .then(html => { document.documentElement.innerHTML = html; });
-                                }
-                            } else { 
-                                openZone(zone); 
-                            }
-                        }
-                    }
-                } catch(e){}
-
-                // Populate filter tags
-                let alltags = [];
-                for (const obj of json) { 
-                    if (Array.isArray(obj.special)) alltags.push(...obj.special); 
-                }
-                alltags = [...new Set(alltags)];
-                const fo = document.getElementById("filterOptions");
-                while (fo.children.length > 1) fo.removeChild(fo.lastElementChild);
-                for (const tag of alltags) {
-                    const opt = document.createElement("option");
-                    opt.value = tag; 
-                    opt.textContent = toTitleCase(tag);
-                    fo.appendChild(opt);
-                }
-            } catch(error) {
-                console.error(error);
-                container.innerHTML = `<p style="color:#333;font-size:13px;padding:12px;">Error loading games.</p>`;
-            }
-        }
-
-        async function fetchPopularity(duration) {
-            try {
-                if (!popularityData[duration]) popularityData[duration] = {};
-                const response = await fetch("https://data.jsdelivr.com/v1/stats/packages/gh/%67%6e%2d%6d%61%74%68/html@main/files?period=" + duration);
-                const data = await response.json();
-                data.forEach(file => {
-                    const m = file.name.match(/\/(\d+)\.html$/);
-                    if (m) popularityData[duration][parseInt(m[1])] = file.hits?.total ?? 0;
-                });
-            } catch(e) { 
-                if (!popularityData[duration]) popularityData[duration] = {}; 
-            }
-        }
-
-        function sortZones() {
-            const s = sortOptions.value;
-            if (s === 'name') zones.sort((a, b) => a.name.localeCompare(b.name));
-            else if (s === 'id') zones.sort((a, b) => a.id - b.id);
-            else if (s === 'popular') zones.sort((a, b) => ((popularityData['year']?.[b.id]) ?? 0) - ((popularityData['year']?.[a.id]) ?? 0));
-            else if (s === 'trendingMonth') zones.sort((a, b) => ((popularityData['month']?.[b.id]) ?? 0) - ((popularityData['month']?.[a.id]) ?? 0));
-            else if (s === 'trendingWeek') zones.sort((a, b) => ((popularityData['week']?.[b.id]) ?? 0) - ((popularityData['week']?.[a.id]) ?? 0));
-            else if (s === 'trendingDay') zones.sort((a, b) => ((popularityData['day']?.[b.id]) ?? 0) - ((popularityData['day']?.[a.id]) ?? 0));
-
-            zones.sort((a, b) => (a.id === -1 ? -1 : b.id === -1 ? 1 : 0));
-
-            if (featuredContainer.innerHTML === "") 
-                displayFeaturedZones(zones.filter(z => z.featured));
-            
-            displayZones(zones);
-        }
-
-        function buildZoneItem(file) {
-            const item = document.createElement("div");
-            item.className = "zone-item";
-            item.onclick = () => openZone(file);
-
-            const wrap = document.createElement("div");
-            wrap.className = "img-wrap";
-            const img = document.createElement("img");
-            img.dataset.src = file.cover.replace("{COVER_URL}", coverURL).replace("{HTML_URL}", htmlURL);
-            img.alt = file.name;
-            img.loading = "lazy";
-            img.className = "lazy-zone-img";
-            wrap.appendChild(img);
-            item.appendChild(wrap);
-
-            const btn = document.createElement("button");
-            btn.textContent = file.name;
-            btn.onclick = e => { e.stopPropagation(); openZone(file); };
-            item.appendChild(btn);
-
-            return item;
-        }
-
-        function setupLazy(selector) {
-            const imgs = document.querySelectorAll(selector + ' img.lazy-zone-img');
-            const obs = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const img = entry.target;
-                        img.src = img.dataset.src;
-                        img.classList.remove("lazy-zone-img");
-                        observer.unobserve(img);
-                    }
-                });
-            }, { rootMargin: "100px", threshold: 0.1 });
-            imgs.forEach(img => obs.observe(img));
-        }
-
-        function displayFeaturedZones(list) {
-            featuredContainer.innerHTML = "";
-            if (!list.length) return;
-            document.getElementById('featuredLabel').style.display = 'block';
-            list.forEach(f => featuredContainer.appendChild(buildZoneItem(f)));
-            setupLazy('#featuredZones');
-        }
-
-        function displayZones(list) {
-            container.innerHTML = "";
-            if (!list.length) {
-                container.innerHTML = `<p style="color:#333;font-size:13px;padding:4px;">No games found.</p>`;
-                return;
-            }
-            document.getElementById('allLabel').textContent = `Games (${list.length})`;
-            list.forEach(f => container.appendChild(buildZoneItem(f)));
-            setupLazy('#container');
-        }
-
-        function filterZones2() {
-            const q = filterOptions.value;
-            if (q === "none") {
-                displayFeaturedZones(zones.filter(z => z.featured));
-                document.getElementById('featuredLabel').style.display = zones.filter(z=>z.featured).length ? 'block' : 'none';
-                displayZones(zones);
-            } else {
-                featuredContainer.innerHTML = "";
-                document.getElementById('featuredLabel').style.display = 'none';
-                displayZones(zones.filter(z => z.special?.includes(q)));
-            }
-        }
-
-        function filterZones() {
-            const q = searchBar.value.toLowerCase();
-            if (!q) {
-                displayFeaturedZones(zones.filter(z => z.featured));
-                document.getElementById('featuredLabel').style.display = zones.filter(z=>z.featured).length ? 'block' : 'none';
-                displayZones(zones);
-                return;
-            }
-            featuredContainer.innerHTML = "";
-            document.getElementById('featuredLabel').style.display = 'none';
-            displayZones(zones.filter(z => z.name.toLowerCase().includes(q)));
-        }
-
-        function openZone(file) {
-            if (file.url.startsWith("http")) {
-                window.open(file.url, "_blank");
-                return;
-            }
-            const url = file.url.replace("{COVER_URL}", coverURL).replace("{HTML_URL}", htmlURL);
-            fetch(url + "?t=" + Date.now())
-                .then(r => r.text())
-                .then(html => {
-                    if (!zoneFrame.contentDocument) {
-                        zoneFrame = document.createElement("iframe");
-                        zoneFrame.id = "zoneFrame";
-                        zoneViewer.appendChild(zoneFrame);
-                    }
-                    zoneFrame.contentDocument.open();
-                    zoneFrame.contentDocument.write(html);
-                    zoneFrame.contentDocument.close();
-
-                    document.getElementById('zoneName').textContent = file.name;
-                    document.getElementById('zoneId').textContent = file.id;
-                    document.getElementById('zoneAuthor').textContent = "by " + file.author;
-                    if (file.authorLink) document.getElementById('zoneAuthor').href = file.authorLink;
-
-                    zoneViewer.style.display = "flex";
-                    try {
-                        const u = new URL(window.location);
-                        u.searchParams.set('id', file.id);
-                        history.pushState(null, '', u.toString());
-                    } catch(e){}
-                })
-                .catch(err => alert("Failed to load: " + err));
-        }
-
-        function closeZone() {
-            zoneViewer.style.display = "none";
-            try { 
-                const u = new URL(window.location); 
-                u.searchParams.delete('id'); 
-                history.pushState(null, '', u.toString()); 
-            } catch(e){}
-        }
-
-        function fullscreenZone() {
-            const f = document.getElementById('zoneFrame');
-            (f.requestFullscreen || f.mozRequestFullScreen || f.webkitRequestFullscreen || f.msRequestFullscreen || (() => {})).call(f);
-        }
-
-        function aboutBlank() {
-            const w = window.open("about:blank", "_blank");
-            const zone = zones.find(z => z.id + '' === document.getElementById('zoneId').textContent);
-            fetch(zone.url.replace("{COVER_URL}", coverURL).replace("{HTML_URL}", htmlURL) + "?t=" + Date.now())
-                .then(r => r.text())
-                .then(html => {
-                    if (w) {
-                        w.document.open();
-                        w.document.write(html);
-                        w.document.close();
-                    }
-                });
-        }
-
-        function downloadZone() {
-            const zone = zones.find(z => z.id + '' === document.getElementById('zoneId').textContent);
-            fetch(zone.url.replace("{HTML_URL}", htmlURL) + "?t=" + Date.now())
-                .then(r => r.text())
-                .then(text => {
-                    const a = document.createElement('a');
-                    a.href = URL.createObjectURL(new Blob([text], {type:"text/plain;charset=utf-8"}));
-                    a.download = zone.name + ".html";
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                });
-        }
-
-        // Settings & Popup functions
-        document.getElementById('settings').addEventListener('click', () => {
-            document.getElementById('popupTitle').textContent = "Settings";
-            document.getElementById('popupBody').innerHTML = `
-                <button class="settings-button" onclick="tabCloak()">Tab Cloak</button>
-                <button class="settings-button" onclick="loadDMCA()">DMCA</button>
-                <button class="settings-button" onclick="showContact()">Contact</button>
-                <button class="settings-button" onclick="loadPrivacy()">Privacy Policy</button>
-                <button class="settings-button" onclick="closePopup(); saveData()">Export Data</button>
-                <button class="settings-button" onclick="closePopup(); document.getElementById('importData').click()">Import Data</button>
-            `;
-            document.getElementById('popupOverlay').style.display = "flex";
-        });
-
-        function tabCloak() {
-            closePopup();
-            document.getElementById('popupTitle').textContent = "Tab Cloak";
-            document.getElementById('popupBody').innerHTML = `
-                <p style="color:#555;font-size:12px;margin-bottom:8px;">Tab title</p>
-                <input type="text" placeholder="Enter tab name..." oninput="document.title = this.value || 'Zetify'">
-                <p style="color:#555;font-size:12px;margin-bottom:8px;">Tab icon URL</p>
-                <input type="text" placeholder="Icon URL..." oninput="document.querySelector('link[rel=\\'shortcut icon\\']').href = this.value || 'https://cdn.jsdelivr.net/gh/scrollingz/ayo@main/favicon.ico'">
-            `;
-            document.getElementById('popupOverlay').style.display = "flex";
-        }
-
-        function showContact() {
-            closePopup();
-            document.getElementById('popupTitle').textContent = "Contact";
-            document.getElementById('popupBody').innerHTML = `
-                <p style="margin-bottom:8px;">Discord: <a href="https://discord.gg/NAFw4ykZ7n" target="_blank">discord.gg/NAFw4ykZ7n</a></p>
-                <p>Email: gn.math.business@gmail.com</p>`;
-            document.getElementById('popupOverlay').style.display = "flex";
-        }
-
-        function loadPrivacy() {
-            closePopup();
-            document.getElementById('popupTitle').textContent = "Privacy Policy";
-            document.getElementById('popupBody').innerHTML = `
-                <div style="max-height:55vh;overflow-y:auto;">
-                    <p style="color:#555;font-size:11px;margin-bottom:12px;">Last updated February 20, 2026</p>
-                    <p style="margin-bottom:10px;">This Privacy Notice for gn-math describes how and why we might collect and use your personal information when you use our services.</p>
-                    <p style="margin-bottom:10px;"><strong>Sensitive data:</strong> We do not process sensitive personal information.</p>
-                    <p style="margin-bottom:10px;"><strong>Third parties:</strong> We do not collect any information from third parties.</p>
-                    <p>Questions? <a href="https://discord.gg/NAFw4ykZ7n" target="_blank">discord.gg/NAFw4ykZ7n</a></p>
-                </div>`;
-            document.getElementById('popupOverlay').style.display = "flex";
-        }
-
-        function loadDMCA() {
-            closePopup();
-            document.getElementById('popupTitle').textContent = "DMCA";
-            document.getElementById('popupBody').innerHTML = `
-                <p style="margin-bottom:12px;">If you own a game on zetify and want it removed:</p>
-                <p style="margin-bottom:8px;">1. <a href="https://discord.gg/D4c9VFYWyU" target="_blank">Join Discord</a> → DM <strong>breadbb</strong> [instant]</p>
-                <p style="margin-bottom:12px;">2. Email <a href="mailto:gn.math.business@gmail.com">gn.math.business@gmail.com</a> — subject: <code>!DMCA</code> [delayed]</p>
-                <p style="color:#555;font-size:12px;">Please include proof of ownership.</p>`;
-            document.getElementById('popupOverlay').style.display = "flex";
-        }
-
-        function closePopup() { 
-            document.getElementById('popupOverlay').style.display = "none"; 
-        }
-
-        // Initialize
-        listZones();
-
-        // Extra protection
-        HTMLCanvasElement.prototype.toDataURL = function() { return ""; };
-    </script>
-
-    <script>
-        try { 
-            if (new URLSearchParams(window.location.search).get('privacy')) loadPrivacy(); 
-        } catch(e){}
-    </script>
-
-    <script>
-        navigator.serviceWorker.register(location.protocol + '//' + location.hostname + '/sw.js');
-    </script>
 </body>
 </html>
