@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <base href="https://cdn.jsdelivr.net/gh/freebuisness/gn-math-DONTDMCA@main/">
+
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+    <link rel="apple-touch-icon" href="favicon.png">
+
+    <script>
+        window.addEventListener('beforeunload', function (event) {
+            event.preventDefault();
+            event.returnValue = '';
+            return 'Are you sure you want to leave? Any unsaved changes will be lost.';
+        });
+    </script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WX5VS54ZDW"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-WX5VS54ZDW');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zetify Games</title>
+    <meta name="title" content="Zetify Games">
+    <meta name="description" content="Play unblocked games like Crazy Cattle 3D, DriveMad, and more. Fast, free, no downloads.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://zetify.games/">
+    <meta property="og:title" content="Zetify Games">
+    <meta property="og:description" content="Play unblocked games like Crazy Cattle 3D, DriveMad, and more. Fast, free, no downloads.">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://zetify.games/">
+    <meta name="twitter:title" content="Zetify Games">
+    <meta name="twitter:description" content="Play unblocked games like Crazy Cattle 3D, DriveMad, and more. Fast, free, no downloads.">
+
+    <style>
+        :root {
+            --primary: #00ff9d;
+            --primary-hover: #00cc7a;
+            --primary-light: rgba(0, 255, 157, 0.15);
+            --accent: #00b8ff;
+            --text: #e0e0e0;
+            --text-muted: #aaaaaa;
+            --text-light: #777777;
+            --bg: #0a0a0a;
+            --bg-secondary: #121212;
+            --surface: #1a1a1a;
+            --surface-hover: #252525;
+            --border: #333333;
+            --border-light: #2a2a2a;
+            --glass: rgba(26, 26, 26, 0.85);
+            --shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+            --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.8);
+            --radius: 12px;
+            --radius-lg: 16px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        header {
+            background: #000000;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(20px);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.25rem 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+        }
+
+        .logo {
+            font-size: 1.85rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: var(--primary);
+        }
+
+        .search-container {
+            display: flex;
+            flex: 1;
+            max-width: 520px;
+            gap: 0.75rem;
+        }
+
+        #searchBar {
+            flex: 1;
+            padding: 0.95rem 1.1rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background: var(--surface);
+            color: var(--text);
+            font-size: 15px;
+            outline: none;
+        }
+
+        #searchBar:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0, 255, 157, 0.2);
+        }
+
+        #sortOptions, #filterOptions {
+            padding: 0.95rem 1.1rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background: var(--surface);
+            color: var(--text-muted);
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            padding-bottom: 80px;
+        }
+
+        #zoneCount {
+            margin: 0 0 1.5rem;
+            font-size: 14px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        #container, #featuredZones {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+            gap: 1.6rem;
+        }
+
+        .zone-item {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .zone-item:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .zone-item img {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .zone-item:hover img {
+            transform: scale(1.08);
+        }
+
+        .zone-item button {
+            width: 100%;
+            padding: 1.1rem 0.8rem;
+            background: transparent;
+            border: none;
+            color: var(--text);
+            font-weight: 600;
+            font-size: 14.5px;
+            text-align: center;
+            cursor: pointer;
+            min-height: 68px;
+        }
+
+        .zone-item:hover button {
+            color: var(--primary);
+        }
+
+        #zoneViewer {
+            position: fixed;
+            inset: 0;
+            background: #000;
+            z-index: 1000;
+            display: none;
+            flex-direction: column;
+        }
+
+        .zone-header {
+            background: #111;
+            padding: 0.8rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border);
+        }
+
+        #zoneName {
+            margin: 0;
+            font-size: 1.35rem;
+            font-weight: 700;
+        }
+
+        .zone-controls button {
+            background: #222;
+            color: var(--text);
+            border: 1px solid var(--border);
+            padding: 0.6rem 1.1rem;
+            border-radius: var(--radius);
+            margin-left: 0.5rem;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .zone-controls button:hover {
+            background: var(--primary);
+            color: #000;
+            border-color: var(--primary);
+        }
+
+        #zoneFrame {
+            flex: 1;
+            border: none;
+            width: 100%;
+            height: 100%;
+        }
+
+        #popupOverlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+
+        .popup {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            width: 100%;
+            max-width: 480px;
+            border: 1px solid var(--border);
+        }
+
+        .popup-header {
+            background: #111;
+            color: white;
+            padding: 1.1rem 1.4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+        }
+
+        #popupClose {
+            background: none;
+            border: none;
+            color: #aaa;
+            font-size: 1.6rem;
+            cursor: pointer;
+        }
+
+        #popupBody {
+            padding: 1.6rem;
+            color: var(--text);
+        }
+
+        footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            padding: 1rem;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            font-size: 13px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .search-container {
+                width: 100%;
+            }
+            #container, #featuredZones {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            }
+        }
+    </style>
+
+    <meta name="theme-color" content="#000000">
+</head>
+<body>
+
+    <header>
+        <div class="header-content">
+            <div class="logo">ZETIFY</div>
+            
+            <div class="search-container">
+                <input type="text" id="searchBar" placeholder="Search games..." oninput="filterZones()">
+                <select id="sortOptions" onchange="sortZones()">
+                    <option value="name">Name</option>
+                    <option value="id">Newest</option>
+                    <option value="popular">Most Popular</option>
+                    <option value="trendingDay">Trending Today</option>
+                    <option value="trendingWeek">Trending This Week</option>
+                </select>
+                <select id="filterOptions" onchange="filterZones2()">
+                    <option value="none">All Tags</option>
+                </select>
+            </div>
+
+            <div class="control-buttons">
+                <button onclick="listZones()" style="background:none;border:none;color:var(--text-muted);cursor:pointer;padding:8px;">
+                    ↻ Refresh
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <details id="featuredZonesWrapper" open>
+            <summary style="font-size: 1.35rem; font-weight: 700; cursor: pointer; margin-bottom: 1rem; color: var(--primary);">Featured Games</summary>
+            <div id="featuredZones"></div>
+        </details>
+
+        <br><hr style="border-color:#222;"><br>
+
+        <details id="allZonesWrapper" open>
+            <summary style="font-size: 1.35rem; font-weight: 700; cursor: pointer; margin-bottom: 1rem;">All Games</summary>
+            <div id="container">Loading games...</div>
+        </details>
+    </main>
+
+    <!-- Zone Viewer -->
+    <div id="zoneViewer">
+        <div class="zone-header">
+            <h2 id="zoneName">Game Title</h2>
+            <div class="zone-controls">
+                <button onclick="fullscreenZone()">Fullscreen</button>
+                <button onclick="aboutBlank()">Open in New Tab</button>
+                <button onclick="downloadZone()">Download</button>
+                <button onclick="closeZone()">Close</button>
+            </div>
+        </div>
+        <iframe id="zoneFrame"></iframe>
+    </div>
+
+    <!-- Popup -->
+    <div id="popupOverlay">
+        <div class="popup">
+            <div class="popup-header">
+                <h3 id="popupTitle">Settings</h3>
+                <button id="popupClose" onclick="closePopup()">✕</button>
+            </div>
+            <div id="popupBody"></div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-links">
+            <a href="javascript:saveData()">Export Data</a>
+            <a href="#" onclick="document.getElementById('importData').click(); return false;">Import Data</a>
+            <input type="file" id="importData" style="display: none;" onchange="loadData(event)">
+        </div>
+    </footer>
+
+    <script>
+        // ==================== CORE VARIABLES ====================
+        const container = document.getElementById('container');
+        const featuredContainer = document.getElementById('featuredZones');
+        const zoneViewer = document.getElementById('zoneViewer');
+        let zoneFrame = document.getElementById('zoneFrame');
+        const searchBar = document.getElementById('searchBar');
+        const sortOptions = document.getElementById('sortOptions');
+        const filterOptions = document.getElementById('filterOptions');
+
+        const zonesurls = [
+            "https://cdn.jsdelivr.net/gh/freebuisness/assets@main/zones.json",
+            "https://cdn.jsdelivr.net/gh/freebuisness/assets@latest/zones.json",
+            "https://cdn.jsdelivr.net/gh/freebuisness/assets@master/zones.json"
+        ];
+        let zonesURL = zonesurls[Math.floor(Math.random() * zonesurls.length)];
+        const coverURL = "https://cdn.jsdelivr.net/gh/freebuisness/covers@main";
+        const htmlURL = "https://cdn.jsdelivr.net/gh/freebuisness/html@main";
+
+        let zones = [];
+        let popularityData = {};
+
+        // ==================== TITLE CASE ====================
+        function toTitleCase(str) {
+            return str.replace(/\w\S*/g, text => text.charAt(0).toUpperCase() + text.substring(1).toLowerCase());
+        }
+
+        // ==================== LOAD ZONES ====================
+        async function listZones() {
+            try {
+                const response = await fetch(zonesURL + "?t=" + Date.now());
+                const json = await response.json();
+                zones = json;
+                zones[0].featured = true;
+
+                await Promise.all([
+                    fetchPopularity("year"),
+                    fetchPopularity("month"),
+                    fetchPopularity("week"),
+                    fetchPopularity("day")
+                ]);
+
+                sortZones();
+
+                // Populate filter tags
+                let alltags = [];
+                for (const obj of json) {
+                    if (Array.isArray(obj.special)) alltags.push(...obj.special);
+                }
+                alltags = [...new Set(alltags)];
+
+                filterOptions.innerHTML = '<option value="none">All Tags</option>';
+                for (const tag of alltags) {
+                    const opt = document.createElement("option");
+                    opt.value = tag;
+                    opt.textContent = toTitleCase(tag);
+                    filterOptions.appendChild(opt);
+                }
+            } catch (error) {
+                console.error(error);
+                container.innerHTML = "Failed to load games. Please refresh.";
+            }
+        }
+
+        async function fetchPopularity(duration) {
+            try {
+                const response = await fetch(
+                    "https://data.jsdelivr.com/v1/stats/packages/gh/freebuisness/html@main/files?period=" + duration
+                );
+                const data = await response.json();
+                popularityData[duration] = {};
+                data.forEach(file => {
+                    const idMatch = file.name.match(/\/(\d+)\.html$/);
+                    if (idMatch) {
+                        const id = parseInt(idMatch[1]);
+                        popularityData[duration][id] = file.hits?.total ?? 0;
+                    }
+                });
+            } catch (e) {
+                popularityData[duration] = {};
+            }
+        }
+
+        function sortZones() {
+            const sortBy = sortOptions.value;
+            if (sortBy === 'name') {
+                zones.sort((a, b) => a.name.localeCompare(b.name));
+            } else if (sortBy === 'id') {
+                zones.sort((a, b) => b.id - a.id);
+            } else if (sortBy === 'popular') {
+                zones.sort((a, b) => ((popularityData['year']?.[b.id]) ?? 0) - ((popularityData['year']?.[a.id]) ?? 0));
+            } else if (sortBy === 'trendingWeek') {
+                zones.sort((a, b) => ((popularityData['week']?.[b.id]) ?? 0) - ((popularityData['week']?.[a.id]) ?? 0));
+            } else if (sortBy === 'trendingDay') {
+                zones.sort((a, b) => ((popularityData['day']?.[b.id]) ?? 0) - ((popularityData['day']?.[a.id]) ?? 0));
+            }
+
+            displayFeaturedZones(zones.filter(z => z.featured));
+            displayZones(zones);
+        }
+
+        function displayFeaturedZones(featured) {
+            featuredContainer.innerHTML = "";
+            featured.forEach(file => {
+                const div = createZoneItem(file);
+                featuredContainer.appendChild(div);
+            });
+        }
+
+        function displayZones(zonesToShow) {
+            container.innerHTML = "";
+            zonesToShow.forEach(file => {
+                const div = createZoneItem(file);
+                container.appendChild(div);
+            });
+            if (zonesToShow.length === 0) {
+                container.innerHTML = "<p style='grid-column:1/-1;text-align:center;color:#666;'>No games found.</p>";
+            }
+        }
+
+        function createZoneItem(file) {
+            const zoneItem = document.createElement("div");
+            zoneItem.className = "zone-item";
+            zoneItem.onclick = () => openZone(file);
+
+            const img = document.createElement("img");
+            img.dataset.src = file.cover.replace("{COVER_URL}", coverURL).replace("{HTML_URL}", htmlURL);
+            img.alt = file.name;
+            img.loading = "lazy";
+            zoneItem.appendChild(img);
+
+            const btn = document.createElement("button");
+            btn.textContent = file.name;
+            btn.onclick = (e) => { e.stopPropagation(); openZone(file); };
+            zoneItem.appendChild(btn);
+
+            return zoneItem;
+        }
+
+        function filterZones() {
+            const query = searchBar.value.toLowerCase().trim();
+            const filtered = zones.filter(zone => zone.name.toLowerCase().includes(query));
+            displayZones(filtered);
+        }
+
+        function filterZones2() {
+            const tag = filterOptions.value;
+            if (tag === "none") {
+                displayZones(zones);
+            } else {
+                const filtered = zones.filter(zone => zone.special && zone.special.includes(tag));
+                displayZones(filtered);
+            }
+        }
+
+        function openZone(file) {
+            if (file.url.startsWith("http")) {
+                window.open(file.url, "_blank");
+                return;
+            }
+
+            const url = file.url.replace("{COVER_URL}", coverURL).replace("{HTML_URL}", htmlURL);
+            fetch(url + "?t=" + Date.now())
+                .then(res => res.text())
+                .then(html => {
+                    zoneFrame.contentDocument.open();
+                    zoneFrame.contentDocument.write(html);
+                    zoneFrame.contentDocument.close();
+
+                    document.getElementById('zoneName').textContent = file.name;
+                    zoneViewer.style.display = "flex";
+
+                    // Update URL
+                    const newUrl = new URL(window.location);
+                    newUrl.searchParams.set('id', file.id);
+                    history.pushState(null, '', newUrl);
+                })
+                .catch(err => alert("Failed to load game: " + err));
+        }
+
+        function closeZone() {
+            zoneViewer.style.display = "none";
+            const url = new URL(window.location);
+            url.searchParams.delete('id');
+            history.pushState(null, '', url);
+        }
+
+        function aboutBlank() {
+            const id = document.getElementById('zoneName').textContent;
+            const zone = zones.find(z => z.name === id);
+            if (!zone) return;
+
+            const url = zone.url.replace("{COVER_URL}", coverURL).replace("{HTML_URL}", htmlURL);
+            fetch(url + "?t=" + Date.now())
+                .then(res => res.text())
+                .then(html => {
+                    const win = window.open("about:blank", "_blank");
+                    if (win) {
+                        win.document.open();
+                        win.document.write(html);
+                        win.document.close();
+                    }
+                });
+        }
+
+        function downloadZone() {
+            const name = document.getElementById('zoneName').textContent;
+            const zone = zones.find(z => z.name === name);
+            if (!zone) return;
+
+            fetch(zone.url.replace("{HTML_URL}", htmlURL) + "?t=" + Date.now())
+                .then(res => res.text())
+                .then(text => {
+                    const blob = new Blob([text], { type: "text/html" });
+                    const a = document.createElement('a');
+                    a.href = URL.createObjectURL(blob);
+                    a.download = name + ".html";
+                    a.click();
+                });
+        }
+
+        function fullscreenZone() {
+            if (zoneFrame.requestFullscreen) zoneFrame.requestFullscreen();
+        }
+
+        // ==================== DATA IMPORT / EXPORT ====================
+        async function saveData() {
+            alert("Exporting browser data... This may take a moment.");
+            // (Keep your original saveData logic if you want full functionality)
+            const result = { localStorage: {...localStorage}, sessionStorage: {...sessionStorage} };
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(new Blob([JSON.stringify(result)], {type: "application/json"}));
+            link.download = "zetify-data-" + Date.now() + ".json";
+            link.click();
+        }
+
+        function loadData(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    if (data.localStorage) {
+                        for (const key in data.localStorage) localStorage.setItem(key, data.localStorage[key]);
+                    }
+                    if (data.sessionStorage) {
+                        for (const key in data.sessionStorage) sessionStorage.setItem(key, data.sessionStorage[key]);
+                    }
+                    alert("Data imported successfully!");
+                } catch(err) {
+                    alert("Failed to import data.");
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        function closePopup() {
+            document.getElementById('popupOverlay').style.display = "none";
+        }
+
+        // ==================== INIT ====================
+        listZones();
+
+        // Lazy load images (basic version)
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    if (img.dataset.src) img.src = img.dataset.src;
+                }
+            });
+        });
+
+        // Re-observe when new zones are added
+        const originalAppend = Node.prototype.appendChild;
+        Node.prototype.appendChild = function(node) {
+            const result = originalAppend.call(this, node);
+            if (node.querySelectorAll) {
+                node.querySelectorAll('img[data-src]').forEach(img => observer.observe(img));
+            }
+            return result;
+        };
+    </script>
+</body>
+</html>
